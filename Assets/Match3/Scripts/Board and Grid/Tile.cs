@@ -23,25 +23,34 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Tile : MonoBehaviour {
 	private static Color selectedColor = new Color(.5f, .5f, .5f, 1.0f);
 	private static Tile previousSelected = null;
 
 	private SpriteRenderer render;
+
 	private bool isSelected = false;
 
 	private Vector2[] adjacentDirections = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+	
+	//public Clip soundSelect;
 
 	void Awake() {
 		render = GetComponent<SpriteRenderer>();
-    }
+
+	}
 
 	private void Select() {
 		isSelected = true;
 		render.color = selectedColor;
 		previousSelected = gameObject.GetComponent<Tile>();
-		SFXManager.instance.PlaySFX(Clip.Select);
+
+		Clip typeSound = (Clip)Enum.Parse(typeof(Clip), render.sprite.name);
+		//Debug.Log(typeSound);
+
+		SFXManager.instance.PlaySFX(typeSound);
 	}
 
 	private void Deselect() {
@@ -85,6 +94,7 @@ public class Tile : MonoBehaviour {
 		render.sprite = tempSprite;
 		SFXManager.instance.PlaySFX(Clip.Swap);
 		GUIManager.instance.MoveCounter--; // Add this line here
+		
 	}
 
 	private GameObject GetAdjacent(Vector2 castDir) {

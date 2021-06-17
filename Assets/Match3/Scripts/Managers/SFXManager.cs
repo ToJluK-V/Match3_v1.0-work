@@ -20,22 +20,38 @@
  * THE SOFTWARE.
  */
 
-using UnityEngine;
 
-public enum Clip { Select, Swap, Clear };
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+//добавлять звуки для плиток тут! Важно, чтобы имена спрайтов и аудиодорожек к ним были индентичны!
+public enum Clip { Select, Swap, Clear, T, U, Letter, Flower, Heart, Fist, Peace }; //Важно соблюдать правильную последовательность
+//в Unity в inspector SFXManager поочередность Audio Source совпадает с индексами Clip.
+
 
 public class SFXManager : MonoBehaviour {
+	
+
 	public static SFXManager instance;
+    
 
-	private AudioSource[] sfx;
+    private AudioSource[] sfx;
+   
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		instance = GetComponent<SFXManager>();
-		sfx = GetComponents<AudioSource>();
+       
+        sfx = GetComponents<AudioSource>();
+       
     }
 
-	public void PlaySFX(Clip audioClip) {
-		sfx[(int)audioClip].Play();
-	}
+
+    public void PlaySFX(Clip audioClip)
+    {
+        sfx[(int)audioClip].Play();
+    }
+
+
 }

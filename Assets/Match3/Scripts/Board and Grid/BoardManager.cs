@@ -5,12 +5,15 @@ using System.Collections.Generic;
 public class BoardManager : MonoBehaviour {
 	public static BoardManager instance;
 	public List<Sprite> characters = new List<Sprite>();
+
 	public GameObject tile;
 	public int xSize, ySize;
 
 	private GameObject[,] tiles;
 
 	public bool IsShifting { get; set; }// сообщит игре, когда совпадение найдено, и игровое поле пополняется новыми плитками.
+
+	
 
 	void Start () {
 		instance = GetComponent<BoardManager>();
@@ -35,7 +38,10 @@ public class BoardManager : MonoBehaviour {
 				newTile.transform.parent = transform; // Add this line
 
 				List<Sprite> possibleCharacters = new List<Sprite>();
+			    
 				possibleCharacters.AddRange(characters);
+				
+
 
 				possibleCharacters.Remove(previousLeft[y]);
 				possibleCharacters.Remove(previousBelow);
@@ -105,5 +111,6 @@ public class BoardManager : MonoBehaviour {
 
 		return possibleCharacters[Random.Range(0, possibleCharacters.Count)];
 	}
+    
 
 }
