@@ -62,6 +62,7 @@
     <Compile Include="Assets\Match3\Scripts\Managers\SFXManager.cs" />
     <Compile Include="Assets\Match3\Scripts\Effects\GUISizePingPong.cs" />
     <Compile Include="Assets\Match3\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Match3\Scripts\Board and Grid\ProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Match3\Audio\Music\Attribution.txt" />

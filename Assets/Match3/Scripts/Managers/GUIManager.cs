@@ -23,6 +23,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+using System.Threading;
 
 public class GUIManager : MonoBehaviour {
 	public static GUIManager instance;
@@ -30,15 +32,26 @@ public class GUIManager : MonoBehaviour {
 	public GameObject gameOverPanel;
 	public Text yourScoreTxt;
 	public Text highScoreTxt;
-
 	public Text scoreTxt;
-	public Text moveCounterTxt;
 
-	private int score, moveCounter;
+	public Text procentTxt;
+	public Text DopScoreTxt;
+	public Text procentUltro;
+
+	public Text moveCounterTxt;
+	public Image LoadingImg;
+	public int PredelProcent;
+	public int Delitel;
+
+
+	private int score, moveCounter, procent;
+	private int scoreForProcent = 0;
 
 	void Awake() {
 		instance = GetComponent<GUIManager>();
-		moveCounter = 99;
+		moveCounter = 100;
+		LoadingImg.fillAmount = 0;
+		procentTxt.text = "0 %";
 	}
 
 	// Show the game over panel
@@ -65,7 +78,40 @@ public class GUIManager : MonoBehaviour {
 		set {
 			score = value;
 			scoreTxt.text = score.ToString();
+			Procent();
+
 		}
+	}
+	private void Procent()
+    {
+		
+		procent = (score- scoreForProcent) / Delitel;
+			if (procent < PredelProcent)
+			{
+				procentTxt.text = procent.ToString() + " %";
+				LoadingImg.fillAmount = (procent / 100f) * (100f / PredelProcent);
+			}
+			if (procent == PredelProcent)
+			{
+			int dopScore= score / 10; ;
+			score += dopScore;
+
+				scoreForProcent = score;
+				LoadingImg.fillAmount = 0;
+			procentTxt.text = procent.ToString() + " %";
+			
+			SFXManager.instance.PlaySFX(Clip.Clear);//need new
+			DopScoreTxt.text = "+" +dopScore.ToString() + "!";
+			procentUltro.text = procent.ToString() + " %";
+			Invoke("DisableText", 4f);//invoke after 5 seconds
+			
+		}
+		
+	}
+	private void DisableText()
+	{
+		DopScoreTxt.enabled = false;
+		procentUltro.enabled = false;
 	}
 
 	public int MoveCounter {

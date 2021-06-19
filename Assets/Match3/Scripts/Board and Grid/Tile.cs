@@ -48,9 +48,9 @@ public class Tile : MonoBehaviour {
 		previousSelected = gameObject.GetComponent<Tile>();
 
 		Clip typeSound = (Clip)Enum.Parse(typeof(Clip), render.sprite.name);
-		//Debug.Log(typeSound);
-
+	//	Debug.Log(render.sprite);
 		SFXManager.instance.PlaySFX(typeSound);
+
 	}
 
 	private void Deselect() {
@@ -114,20 +114,29 @@ public class Tile : MonoBehaviour {
 		return adjacentTiles;
 	}
 
-	private List<GameObject> FindMatch(Vector2 castDir) // komb tail	
-	{
-		List<GameObject> matchingTiles = new List<GameObject>();
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, castDir);
-		while (hit.collider != null && ( hit.collider.GetComponent<SpriteRenderer>().sprite == render.sprite)) {
-			matchingTiles.Add(hit.collider.gameObject);//  лучевая трансляция не достигнет тайла, либо спрайт тайлов будет отличаться от возвращенного спрайта объекта. || hit.collider.GetComponent<SpriteRenderer>().sprite ==
-			hit = Physics2D.Raycast(hit.collider.transform.position, castDir);
-		}
-		return matchingTiles;
-	}
+    private List<GameObject> FindMatch(Vector2 castDir)
+    {
+        List<GameObject> matchingTiles = new List<GameObject>();
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position, castDir);// первый сосед
+
+        while (hit1.collider != null && hit1.collider.GetComponent<SpriteRenderer>().sprite == render.sprite)
+        {
+            matchingTiles.Add(hit1.collider.gameObject);
+            hit1 = Physics2D.Raycast(hit1.collider.transform.position, castDir);//второй сосед
+        }
+        //RaycastHit2D hit2 = Physics2D.Raycast(hit1.collider.transform.position, castDir);//второй сосед
+        //RaycastHit2D hit3 = Physics2D.Raycast(transform.position, -castDir);//первый сосед с другой стороны
+        //if (hit1.collider != null && render.sprite.name + hit1.collider.GetComponent<SpriteRenderer>().sprite.name +  hit2.collider.GetComponent<SpriteRenderer>().sprite.name == "TUT")
+        //{
+        //    matchingTiles.Add(hit1.collider.gameObject); matchingTiles.Add(hit2.collider.gameObject);
+        //}
+        return matchingTiles;
+    }
+	
 
 	private void ClearMatch(Vector2[] paths) {
 		List<GameObject> matchingTiles = new List<GameObject>();
-		for (int i = 0; i < paths.Length; i++) { matchingTiles.AddRange(FindMatch(paths[i])); }
+		for (int i = 0; i < paths.Length; i++) { matchingTiles.AddRange(FindMatch(paths[i]));  }
 		if (matchingTiles.Count >= 2) {
 			for (int i = 0; i < matchingTiles.Count; i++) {
 				matchingTiles[i].GetComponent<SpriteRenderer>().sprite = null;

@@ -7,6 +7,8 @@ public class BoardManager : MonoBehaviour {
 	public List<Sprite> characters = new List<Sprite>();
 
 	public GameObject tile;
+	
+	
 	public int xSize, ySize;
 
 	private GameObject[,] tiles;
