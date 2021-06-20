@@ -26,7 +26,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //добавлять звуки для плиток тут! Важно, чтобы имена спрайтов и аудиодорожек к ним были индентичны!
-public enum Clip { Select, Swap, Clear, T, U, Letter, Flower, Heart, Fist, Peace }; //Важно соблюдать правильную последовательность
+public enum Clip { Select, Swap, Clear, T, U, Letter, Procent, Heart, Fist, Peace }; //Важно соблюдать правильную последовательность
 //в Unity в inspector SFXManager поочередность Audio Source совпадает с индексами Clip.
 
 

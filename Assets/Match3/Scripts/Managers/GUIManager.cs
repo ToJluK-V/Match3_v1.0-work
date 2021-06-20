@@ -100,7 +100,7 @@ public class GUIManager : MonoBehaviour {
 				LoadingImg.fillAmount = 0;
 			procentTxt.text = procent.ToString() + " %";
 			
-			SFXManager.instance.PlaySFX(Clip.Clear);//need new
+			SFXManager.instance.PlaySFX(Clip.Procent);//need new
 			DopScoreTxt.text = "+" +dopScore.ToString() + "!";
 			procentUltro.text = procent.ToString() + " %";
 			Invoke("DisableText", 4f);//invoke after 5 seconds

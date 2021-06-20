@@ -23,11 +23,15 @@
 using UnityEngine;
 using System.Collections;
 
+
 [RequireComponent(typeof(RectTransform))]
 public class GUISizePingPong : MonoBehaviour {
 
 	public Vector3 minScale = new Vector3(.5f, .5f, .5f);
 	public float changeDelay = .03f;
+
+	public float DopScale;
+
 	RectTransform rectTransform;
 
 	void Start() {
@@ -52,7 +56,7 @@ public class GUISizePingPong : MonoBehaviour {
 				}
 			} else {
 				currentScale += changeScale;
-				if (currentScale.x >= 1) {
+				if (currentScale.x >= 1.1+ DopScale) {
 					shrink = true;
 				}
             }
