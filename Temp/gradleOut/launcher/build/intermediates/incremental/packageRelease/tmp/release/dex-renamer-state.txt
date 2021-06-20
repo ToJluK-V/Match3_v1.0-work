@@ -1,4 +1,0 @@
-#Sun Jun 20 03:49:06 MSK 2021
-base.0=D\:\\Create_Games\\Match3_v1.0-work\\Temp\\gradleOut\\launcher\\build\\intermediates\\dex\\release\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
